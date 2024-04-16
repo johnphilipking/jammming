@@ -9,7 +9,6 @@ const JammmingUi = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [profile, setProfile] = useState({});
   const [playlists, setPlaylists] = useState([]);
-  //const [currentPlaylistId, setCurrentPlaylistId] = useState("");
   const [playlist, setPlaylist] = useState({});
   const [editList, setEditList] = useState([]);
   const [addToList, setAddToList] = useState([]);
@@ -17,6 +16,7 @@ const JammmingUi = () => {
   const [searchResult, setSearchResult] = useState({});
   const [loader, setLoader] = useState(false);
   const [modified, setModified] = useState(false);
+  const [playlistNewName, setPlaylistNewName] = useState("");
 
   const loginWithSpotify = () => {
     setProfile({});
@@ -84,6 +84,7 @@ const JammmingUi = () => {
           setModified(false);
           setEditList(pullEditList(response));
           setPlaylist({ id: response.id, name: response.name });
+          setPlaylistNewName(response.name);
           setLoader(false);
         })
         .catch((error) => {
@@ -97,6 +98,7 @@ const JammmingUi = () => {
     setPlaylist({});
     setEditList([]);
     setModified(false);
+    setPlaylistNewName("");
   };
 
   const handleNewListClick = () => {
@@ -183,13 +185,22 @@ const JammmingUi = () => {
     document.getElementById("search_term").value = "";
   };
 
+  const changePlaylistName = (event) => {
+    setPlaylistNewName(event.target.value);
+    setPlaylist({ name: event.target.value, ...playlist });
+    setModified(true);
+  };
+
   const saveChanges = () => {
     const playlist_id = document.getElementById("playlists_select").value;
+    const rename = playlist.name !== playlistNewName;
     api
       .saveListChanges(
         playlist_id,
         deleteFromList,
         addToList,
+        playlist.name,
+        playlistNewName,
         accessToken,
         loginWithSpotify
       )
@@ -198,6 +209,12 @@ const JammmingUi = () => {
         setAddToList([]);
         setDeleteFromList([]);
         alert("Playlist changes saved!");
+        if (rename) {
+          alert(
+            "Changes saved. NOTE: It may take a minute or two for the playlist name change to be complete in Spotify"
+          );
+          window.location = './';
+        }
       });
   };
 
@@ -306,7 +323,7 @@ const JammmingUi = () => {
           />
         </div>
         <div id="playlist" className="list">
-          <h3>Playlist</h3>
+          <h3>Playlists</h3>
           <PlaylistsItems playlists={playlists} />
           <div className="button-group">
             <button
@@ -352,6 +369,8 @@ const JammmingUi = () => {
           <div className={playlist.id ? "" : "hide"}>
             <Playlist
               name={playlist.name ? playlist.name : ""}
+              playlistNewName={playlistNewName}
+              changePlaylistName={changePlaylistName}
               list={editList}
               playlistId={playlist.id ? playlist.id : ""}
               deleteTrack={deleteTrack}

@@ -22,6 +22,17 @@
   font-weight: 600;
 }
 
+.list h3 {
+  text-align: left;
+  font-size: 1em;
+}
+
+#loadedPlaylistName {
+  margin: -2px 0 -3px 5px;
+  font-size: .75rem;
+  flex-grow: 1;
+}
+
 .jammmingUI .lists-container {
   display: flex;
   flex-wrap: wrap;
@@ -61,6 +72,10 @@
   margin-right: 1em;
   display: inline;
   width: auto;
+}
+
+#playlists_select {
+  padding: 0.2rem 0.5rem 0.1rem;
 }
 
 .radioGroup {

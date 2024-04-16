@@ -1,6 +1,6 @@
 import React from "react";
 
-const Playlist = ({ name, list, playlistId, deleteTrack }) => {
+const Playlist = ({ name, playlistNewName, changePlaylistName, list, playlistId, deleteTrack }) => {
   //console.log(list);
 
   const elements = list.map((item, index) => {
@@ -25,7 +25,7 @@ const Playlist = ({ name, list, playlistId, deleteTrack }) => {
 
   return (
     <>
-      <div className="edit-list-name">Playlist: {name}</div>
+      <div className="edit-list-name"><span>Playlist:</span> <input id="loadedPlaylistName" value={playlistNewName} onChange={changePlaylistName} /></div>
       <ul className="list-unit playlist" key="playlist_ul">
         {elements}
       </ul>

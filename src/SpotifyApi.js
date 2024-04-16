@@ -134,18 +134,22 @@ export async function saveListChanges(
   playlist_id,
   deleteItems,
   addItems,
+  playlistName,
+  playlistNewName,
   token,
-  loginExpired
+  loginExpired,
+
 ) {
   const saveStatus = {
     addComplete: false,
     deleteComplete: false,
+    renameComplete: false,
     addError: "",
     deleteError: "",
   };
 
   const saveComplete = () => {
-    if (saveStatus.addComplete && saveStatus.deleteComplete) {
+    if (saveStatus.addComplete && saveStatus.deleteComplete && saveStatus.renameComplete) {
       return JSON.stringify(saveStatus);
     }
   };
@@ -177,6 +181,22 @@ export async function saveListChanges(
     saveStatus.deleteComplete = true;
     saveComplete();
   }
+
+  if(playlistName !== playlistNewName){
+    updatePlaylistName(
+      playlist_id,
+      playlistNewName,
+      token,
+      loginExpired
+    ).then((response) => {
+      saveStatus.renameComplete = true;
+      saveComplete();
+    });
+  } else {
+    saveStatus.renameComplete = true;
+    saveComplete();
+  }
+
 }
 
 async function saveOrDeleteTracks(
@@ -214,6 +234,50 @@ async function saveOrDeleteTracks(
   if (response.ok) {
     try {
       const data = await response.json();
+      return data;
+    } catch (error) {
+      if (error.message && error.message === "The access token expired") {
+        loginExpired();
+      }
+      console.log(error);
+    }
+  } else {
+    const data = await response.json();
+    if (
+      data.error.message &&
+      data.error.message === "The access token expired"
+    ) {
+      loginExpired();
+    }
+    console.log(data);
+  }
+}
+
+async function updatePlaylistName(
+  playlist_id,
+  playlistNewName,
+  token,
+  loginExpired
+) {
+  const apiEndpoint =
+    "https://api.spotify.com/v1/playlists/" + playlist_id;
+
+  const payload = {
+    name: playlistNewName,
+  };
+
+  const response = await fetch(apiEndpoint, {
+    method: "PUT",
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (response.ok) {
+    try {
+      const data = {status: "Playlist name changed."};
       return data;
     } catch (error) {
       if (error.message && error.message === "The access token expired") {
