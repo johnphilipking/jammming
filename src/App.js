@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+
+import "./App.css";
+import JammmingUi from './Ui';
 
 function App() {
+  
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <h1 className="poppins-black app-logo">
+          <img src="./waveform-svgrepo-com.svg" height="30px" alt="sine wave graphic" className="sinewave" />
+          jammming
+        </h1>
+      </header>
+      <main id="main">
+        <JammmingUi />
+      </main>
+      
+      <footer className="App-footer">
+        <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
-      </header>
+      </footer>
     </div>
   );
 }
