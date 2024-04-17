@@ -16,8 +16,14 @@ Remember to add .env to your .gitignore file to keep it out of the repo.
 */
 
 const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const redirectUri = "http://localhost:3000/";
 const getTokenUrl = "https://accounts.spotify.com/api/token";
+
+const redirectUri = () => {
+  if (window.location.host === "localhost:3000") {
+    return "http://localhost:3000/";
+  }
+  return "https://jammming-self.vercel.app/";
+};
 
 const generateRandomString = (length) => {
   const possible =
@@ -58,7 +64,7 @@ export const requestUserAuthorization = async () => {
     scope: scope,
     code_challenge_method: "S256",
     code_challenge: codeChallenge,
-    redirect_uri: redirectUri,
+    redirect_uri: redirectUri(),
   };
   authUrl.search = new URLSearchParams(params).toString();
   window.location.href = authUrl.toString();
@@ -76,7 +82,7 @@ export async function getToken(code, callback) {
       client_id: clientId,
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: redirectUri,
+      redirect_uri: redirectUri(),
       code_verifier: codeVerifier,
     }),
   };
