@@ -13,6 +13,10 @@ John Philip King - johnphilipking@gmail.com
 
 Project Link: [https://github.com/johnphilipking/jammming](https://github.com/johnphilipking/jammming)
 
+## Deployed Code Example
+
+Test Site Hosted on Vercel: [https://jammming-self.vercel.app/](https://jammming-self.vercel.app/)
+
 
 ## Getting Started with Create React App
 
