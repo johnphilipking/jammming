@@ -9,29 +9,29 @@ const SearchResult = ({ searchResult, addTrack, editList }) => {
     if (total) {
       const elements = searchResult.tracks.items.map((item, index) => {
         return (
-          <li key={index} value={item.id}>
+          <li
+            key={index}
+            value={item.id}
+            aria-label={"Click to add " + item.name}
+            onClick={() =>
+              addTrack({
+                id: item.id,
+                uri: item.uri,
+                imgSrc: item.album.images[2].url,
+                albumName: item.album.name,
+                trackName: item.name,
+                artistName: item.artists[0].name,
+              })
+            }
+          >
             <img src={item.album.images[2].url} alt={item.album.name} />
             <span>
               {item.name}
               <br />
               <i>{item.artists[0].name}</i>
             </span>
-
-            <span
-              className="add-icon"
-              aria-label={"Click to add " + item.name}
-              onClick={() =>
-                addTrack({
-                  id: item.id,
-                  uri: item.uri,
-                  imgSrc: item.album.images[2].url,
-                  albumName: item.album.name,
-                  trackName: item.name,
-                  artistName: item.artists[0].name,
-                })
-              }
-            >
-              &#x2B;
+            <span className="addIcon">
+              Click<br/>to add
             </span>
           </li>
         );

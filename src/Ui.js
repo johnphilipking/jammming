@@ -152,7 +152,7 @@ const JammmingUi = () => {
   const addTrack = (listItem) => {
     //console.log("list items: ", listItem);
     if (!playlist.id) {
-      alert("Unable to add track: Playlist not loaded.");
+      alert('Unable to add track: Playlist not loaded. Please select an existing playlist to edit, or create a new playlist by clicking the "New Playlist" button.');
       return;
     }
     let id = listItem.id;
@@ -208,6 +208,7 @@ const JammmingUi = () => {
         //console.log(response);
         setAddToList([]);
         setDeleteFromList([]);
+        setModified(false);
         alert("Playlist changes saved!");
         if (rename) {
           alert(
@@ -308,10 +309,10 @@ const JammmingUi = () => {
           <input
             type="text"
             id="search_term"
-            placeholder="track, artist, or album name"
+            placeholder="Enter track, artist, or album name"
           />
           <div className="button-group">
-            <button onClick={searchSpotifyClick}>Search Spotify</button>
+            <button className="search-btn" onClick={searchSpotifyClick}>Search Spotify</button>
             <button className="clear-search" onClick={clearSearch}>
               Clear Search
             </button>

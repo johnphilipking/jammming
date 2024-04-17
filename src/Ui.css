@@ -29,7 +29,7 @@
 
 #loadedPlaylistName {
   margin: -2px 0 -3px 5px;
-  font-size: .75rem;
+  font-size: 0.75rem;
   flex-grow: 1;
 }
 
@@ -56,7 +56,6 @@
   font-size: 0.85em;
   margin: 0 0 0.3em;
   border-radius: 4px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 #newPlaylistForm {
@@ -106,10 +105,16 @@ main .jammmingUI button {
   white-space: nowrap;
   width: auto;
   border-radius: 4px;
-  background-color: #dddddd;
-  color: #333333;
+  background-color: #fff;
+  color: #444444;
   font-size: 0.85em;
+  font-weight: 450;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+main .jammmingUI button.search-btn {
+  color: lightseagreen;
+  background-color: #fff;
 }
 
 .jammmingUI .search-form {
@@ -121,7 +126,7 @@ main .jammmingUI button {
 .jammmingUI button:active {
   color: #d9381e;
   background-color: #fff;
-  font-weight: bold;
+  font-weight: 800;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -195,9 +200,10 @@ ul.list-unit li {
   background-color: #fff;
 }
 
-ul.list-unit li:hover,
-ul.list-unit li:active {
-  background-color: #daf2f8;
+ul.list-unit.searchResults li:hover,
+ul.list-unit.searchResults li:active {
+  background-color: #e8f7f6;
+  cursor: pointer;
 }
 
 ul.list-unit li:last-child {
@@ -211,17 +217,42 @@ ul.list-unit li img {
 
 ul.list-unit li span {
   flex-grow: 1;
+  text-align: left;
 }
 
-ul.list-unit li span.delete-icon,
-ul.list-unit li span.add-icon {
+ul.list-unit.searchResults li span:last-child {
+  flex-grow: 0;
+}
+
+ul.list-unit li span.addIcon {
+  display: none;
+  font-size: 0.85em;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0.3em;
+}
+
+ul.list-unit li:hover span.addIcon,
+ul.list-unit li:active span.addIcon {
+  display: block;
+}
+
+.arrow-right {
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 0.85em;
+}
+
+ul.list-unit li span.delete-icon {
   height: 20px;
   width: 20px;
   min-width: 20px;
-  font-size: 0.95em;
+  font-size: 1em;
   flex-grow: 0;
   margin: 0 0.5em 0;
-  border: 1px solid;
+  color: #d9381e;
+  border: 1px solid #d9381e;
   border-radius: 10px;
   text-align: center;
   cursor: pointer;
@@ -233,15 +264,6 @@ ul.list-unit li span.delete-icon:active {
   background-color: #d9381e;
   border-color: #d9381e;
   color: #fff;
-}
-
-ul.list-unit li span.add-icon:hover,
-ul.list-unit li span.add-icon:active {
-  background-color: #fff;
-  border-color: #fff;
-  color: green;
-  font-weight: bold;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.5);
 }
 
 .edit-list-name,
@@ -261,10 +283,8 @@ ul.list-unit li span.add-icon:active {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-main .jammmingUI .edit-list-name button.save-changes {
-  margin: -2px 0 -3px;
-  border: none;
-  background-color: #d9381e;
+main .jammmingUI button.save-changes {
+  background-color: lightseagreen;
   color: white;
 }
 
@@ -280,6 +300,38 @@ main .jammmingUI .edit-list-name button.save-changes {
   width: 50px;
   border-radius: 25px;
   margin-top: -10px;
+}
+
+/* adjustments for mobile screens */
+@media screen and (max-width: 600px) {
+  .jammmingUI section {
+    padding: 0.25rem;
+  }
+  .jammmingUI h3 {
+    margin: .7rem 0;
+  }
+
+  .jammmingUI .lists-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: start;
+    justify-content: calc(50%);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 8px;
+    padding-bottom: 2rem;
+  }
+
+  .jammmingUI .list {
+    flex: 1 0 100%;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .jammmingUI ul.list-unit {
+    max-height: 33vh;
+    overflow: scroll;
+  }
 }
 
 /* HTML: <div class="loader"></div> */
