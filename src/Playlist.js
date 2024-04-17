@@ -25,7 +25,7 @@ const Playlist = ({ name, playlistNewName, changePlaylistName, list, playlistId,
 
   return (
     <>
-      <div className="edit-list-name"><span>Playlist:</span> <input id="loadedPlaylistName" value={playlistNewName} onChange={changePlaylistName} /></div>
+      <div className="edit-list-name"><span>Playlist Name:</span> <input id="loadedPlaylistName" value={playlistNewName} onChange={changePlaylistName} /></div>
       <ul className="list-unit playlist" key="playlist_ul">
         {elements}
       </ul>

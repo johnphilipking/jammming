@@ -17,6 +17,7 @@ const JammmingUi = () => {
   const [loader, setLoader] = useState(false);
   const [modified, setModified] = useState(false);
   const [playlistNewName, setPlaylistNewName] = useState("");
+  const [showInstructions, setShowInstructions] = useState(true);
 
   const loginWithSpotify = () => {
     setProfile({});
@@ -152,7 +153,9 @@ const JammmingUi = () => {
   const addTrack = (listItem) => {
     //console.log("list items: ", listItem);
     if (!playlist.id) {
-      alert('Unable to add track: Playlist not loaded. Please select an existing playlist to edit, or create a new playlist by clicking the "New Playlist" button.');
+      alert(
+        'Unable to add track: Playlist not loaded. Please select an existing playlist to edit, or create a new playlist by clicking the "New Playlist" button.'
+      );
       return;
     }
     let id = listItem.id;
@@ -191,6 +194,11 @@ const JammmingUi = () => {
     setModified(true);
   };
 
+  const showHideInstructions = (event) => {
+    event.preventDefault();
+    showInstructions ? setShowInstructions(false) : setShowInstructions(true);
+  };
+
   const saveChanges = () => {
     const playlist_id = document.getElementById("playlists_select").value;
     const rename = playlist.name !== playlistNewName;
@@ -214,7 +222,7 @@ const JammmingUi = () => {
           alert(
             "Changes saved. NOTE: It may take a minute or two for the playlist name change to be complete in Spotify"
           );
-          window.location = './';
+          window.location = "./";
         }
       });
   };
@@ -301,6 +309,49 @@ const JammmingUi = () => {
         </button>
       </section>
 
+      <section className="instructions">
+        <p>
+          Welcome to Jammming! This app enables users to edit new or existing
+          Spotify playists.
+        </p>
+        <ul className={!showInstructions ? "hide" : ""}>
+          <li className={accessToken ? "hide" : ""}>
+            Click "Log in with Spotify" to login to your Spotify account and
+            retrieve your playlists
+          </li>
+          <li className={!accessToken ? "hide" : ""}>
+            Select an existing playlist to edit, and then enter a search term
+            into the Spotify search form.
+          </li>
+          <li className={!accessToken ? "hide" : ""}>
+            Click a track from the search results to add it to the playlist
+            currently being edited.
+          </li>
+          <li className={!accessToken ? "hide" : ""}>
+            To remove a track from the playlist, click the &#10005; icon for
+            that track.
+          </li>
+          <li className={!accessToken ? "hide" : ""}>
+            To rename the playlist, replace the old name shown at the top of the
+            playlist with the new one
+          </li>
+          <li className={!accessToken ? "hide" : ""}>
+            To create a new playlist, click "New Playlist" button and complete
+            form. When you save the new playlist to Spotify the page will reload
+            and you can select it from the list.
+          </li>
+          <li className={!accessToken ? "hide" : ""}>
+            To save all changes to Spotify, click the "Save Changes" button
+          </li>
+        </ul>
+
+        <p>
+          <a className="showHideLink" onClick={showHideInstructions}>
+            {showInstructions ? "Hide instructions" : "Show Instructions"}
+          </a>
+        </p>
+      </section>
+
       <section
         id="lists"
         className={profile.display_name ? "lists-container" : "hide"}
@@ -313,7 +364,9 @@ const JammmingUi = () => {
             placeholder="Enter track, artist, or album name"
           />
           <div className="button-group">
-            <button className="search-btn" onClick={searchSpotifyClick}>Search Spotify</button>
+            <button className="search-btn" onClick={searchSpotifyClick}>
+              Search Spotify
+            </button>
             <button className="clear-search" onClick={clearSearch}>
               Clear Search
             </button>

@@ -11,6 +11,38 @@
   padding: 1rem;
 }
 
+.jammmingUI section.instructions {
+  font-size: 0.8rem;
+  text-align: left;
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.jammmingUI a.showHideLink {
+  color: lightseagreen;
+  font-size: 0.9em;
+  text-decoration: underline;
+}
+
+.jammmingUI section.instructions p,
+.jammmingUI section.instructions ul {
+  width: 100%;
+  max-width: 700px;
+  margin: 0.5em auto;
+}
+
+.jammmingUI section.instructions ul li {
+  font-size: 0.9em;
+  padding: 0.3em 0;
+  list-style-type: circle;
+}
+
+.jammmingUI section.instructions .hide {
+  display: none;
+}
+
 .jammmingUI a {
   cursor: pointer;
 }
@@ -308,7 +340,7 @@ main .jammmingUI button.save-changes {
     padding: 0.25rem;
   }
   .jammmingUI h3 {
-    margin: .7rem 0;
+    margin: 0.7rem 0;
   }
 
   .jammmingUI .lists-container {
