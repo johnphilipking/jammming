@@ -253,6 +253,7 @@ const JammmingUi = () => {
     const code =
       new URLSearchParams(window.location.search).get("code") || false;
     if (code) {
+      setLoader(true);
       //console.log("detected code param, calling getToken()");
       oauth.getToken(code);
     }
