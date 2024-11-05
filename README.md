@@ -1,4 +1,5 @@
 # Jammming - a Spotify Playlist Editing App
+LIVE DEMO: https://jammming-self.vercel.app/
 
 This project was built as part of a [Codecademy](https://www.codecademy.com/) Skill Path named "Create a Front-End App with React. The app requires that a valid Spotify Client ID be set as an environmental variable 
 named REACT_APP_SPOTIFY_CLIENT_ID and you can set it by creating a .env file in the app root folder and adding an entry like this:
